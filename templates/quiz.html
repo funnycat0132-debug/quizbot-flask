@@ -1,39 +1,29 @@
-{% extends "base.html" %}
-{% block content %}
-  <div class="card">
-    <div class="flex between">
-      <div>Вопрос {{ idx + 1 }} из {{ total }}</div>
-      <div id="timer" data-deadline="{{ deadline }}"></div>
-    </div>
-    <h2 style="margin-top:10px">{{ q.question }}</h2>
-    <form method="post" class="options">
-      {% for opt in q.options %}
-        <button class="btn option" type="submit" name="answer" value="{{ loop.index0 }}">{{ opt }}</button>
-      {% endfor %}
-    </form>
-    <div class="muted">Осталось <span id="time-left">{{ time_left }}</span> сек.</div>
-  </div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ title }}</title>
   <script>
-    (function(){
-      const timerEl = document.getElementById("timer");
-      const timeLeftEl = document.getElementById("time-left");
-      const deadline = parseInt(timerEl.dataset.deadline, 10) * 1000;
-      function pad(n){return n<10?("0"+n):n;}
-      function tick(){
-        const now = Date.now();
-        const leftMs = Math.max(0, deadline - now);
-        const leftSec = Math.floor(leftMs / 1000);
-        const m = Math.floor(leftSec / 60);
-        const s = leftSec % 60;
-        timerEl.textContent = "⏱ " + pad(m) + ":" + pad(s);
-        timeLeftEl.textContent = leftSec;
-        if (leftSec <= 0) {
-          window.location.replace("{{ url_for('result') }}");
-        } else {
-          setTimeout(tick, 250);
-        }
+    let timeLeft = 30; // секунды
+    function countdown() {
+      if (timeLeft <= 0) {
+        window.location.href = "/result";
+      } else {
+        document.getElementById("timer").innerHTML = "Осталось: " + timeLeft + " сек.";
+        timeLeft--;
+        setTimeout(countdown, 1000);
       }
-      tick();
-    })();
+    }
+    window.onload = countdown;
   </script>
-{% endblock %}
+</head>
+<body>
+  <h1>{{ title }}</h1> <!-- R-RP 07 Тест на 9-й ранг -->
+  <h2>{{ q.q }}</h2>
+  <form method="post">
+    {% for opt in q.opts %}
+      <button type="submit" name="answer" value="{{ loop.index0 }}">{{ opt }}</button><br>
+    {% endfor %}
+  </form>
+  <p id="timer"></p>
+</body>
+</html>
