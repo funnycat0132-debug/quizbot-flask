@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>{{ title }}</title>
   <script>
-    let timeLeft = 30;
+    let timeLeft = 30; // Таймер всего теста в секундах
     function countdown() {
       if (timeLeft <= 0) {
         window.location.href = "/result";
