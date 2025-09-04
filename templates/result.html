@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card">
+    <h2>Результат</h2>
+    <p>Ваши очки: <b>{{ score }}</b> из <b>{{ total }}</b></p>
+    <p>Начало: {{ started_at }}<br>Окончание: {{ finished_at }}<br>Затрачено: {{ duration_sec }} сек.</p>
+    <a class="btn" href="{{ url_for('index') }}">Пройти снова</a>
+  </div>
+{% endblock %}
