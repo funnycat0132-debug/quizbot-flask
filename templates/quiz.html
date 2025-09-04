@@ -3,7 +3,7 @@
 <head>
   <title>{{ title }}</title>
   <script>
-    let timeLeft = 30; // секунды
+    let timeLeft = 30;
     function countdown() {
       if (timeLeft <= 0) {
         window.location.href = "/result";
@@ -17,7 +17,7 @@
   </script>
 </head>
 <body>
-  <h1>{{ title }}</h1> <!-- R-RP 07 Тест на 9-й ранг -->
+  <h1>{{ title }}</h1>
   <h2>{{ q.q }}</h2>
   <form method="post">
     {% for opt in q.opts %}
